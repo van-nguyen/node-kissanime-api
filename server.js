@@ -38,6 +38,7 @@ cloudscraper.get('http://kissanime.com', function(err, body, resp) {
 			for (var i in results) {
 				results[i].shortUrl = results[i].url.replace("http://kissanime.com/Anime/", "");
 			}
+			console.log('/search/'+animeName);
 			res.send(results);
 		})
 	});
@@ -54,12 +55,15 @@ cloudscraper.get('http://kissanime.com', function(err, body, resp) {
 		Anime.fromName(animeName).then(function(anime) {
 			res.type('json');
 		  	if (filter === "info") {
+		  		console.log('/getAnimeByName/'+animeName+'/'+filter);
 		  		return res.send(anime.info);
 		  	}
 		  	else if (filter === "episodes") {
+		  		console.log('/getAnimeByName/'+animeName+'/'+filter);
 				return res.send(anime.episodes);
 		  	}
 		  	else{
+		  		console.log('/getAnimeByName/'+animeName);
 		  		return res.send(anime);
 		  	};
 		})
@@ -77,12 +81,15 @@ cloudscraper.get('http://kissanime.com', function(err, body, resp) {
 		Anime.fromUrl('http://kissanime.com/Anime/'+animeName).then(function(anime) {
 			res.type('json');
 			if (filter === "info") {
+				console.log('/getAnimeByUrl/'+animeName+'/'+filter);
 		  		return res.send(anime.info);
 		  	}
 		  	else if (filter === "episodes") {
+		  		console.log('/getAnimeByUrl/'+animeName+'/'+filter);
 				return res.send(anime.episodes);
 		  	}
 		  	else{
+		  		console.log('/getAnimeByUrl/'+animeName);
 		  		return res.send(anime);
 		  	};
 		})
@@ -108,23 +115,29 @@ cloudscraper.get('http://kissanime.com', function(err, body, resp) {
 					if (quality != "") {
 						for (var i in results) {
 							if (quality == "/"+results[i]['name']) {
+								console.log('/getVideoByUrl/'+animeName+'/'+filter+'/'+quality);
 								return res.send(results[i]);
 							};
 						}
+						console.log('/getVideoByUrl/'+animeName+'/'+filter+'/'+quality);
 						return res.send(results);
 					}
 					else {
+						console.log('/getVideoByUrl/'+animeName+'/'+filter);
 						return res.send(results);
 					};
 				})
 			}
 			else{
 				anime.getVideoUrls().then(function(results) {
+					console.log('/getVideoByUrl/'+animeName);
 					return res.send(results);
 				})
 			};
 		})
 	})
+
+	console.log("Ready, listening on port "+defaultPort+".");
 });
 
 /*
@@ -136,8 +149,8 @@ app.get('/cookie', function(req, res) {
 		var newString = resp.request.headers.cookie;
 		var json = {"cookie": newString}
 		res.type('json');
+		console.log('/cookie/'+newString);
 		res.send(json);
 	});
 });
 app.listen(process.env.PORT || defaultPort);
-console.log("Ready, listening on port "+defaultPort+".");
