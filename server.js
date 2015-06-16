@@ -33,7 +33,6 @@ cloudscraper.get('http://kissanime.com', function(err, body, resp) {
 	*/
 	app.get('/search/:name', function(req, res) {
 		var animeName = req.params.name;
-		var query;
 		AnimeUtils.searchByName(animeName).then(function(results) {
 		    res.type('json');
 			for (var i in results) {
