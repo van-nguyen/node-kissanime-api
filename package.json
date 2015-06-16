@@ -1,6 +1,6 @@
 {
   "name": "node-kissanime-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Basic KissAnime API server with node.",
   "main": "server.js",
   "scripts": {
