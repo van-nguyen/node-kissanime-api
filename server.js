@@ -16,6 +16,15 @@ var defaultPort = 80;
 
 var app = express();
 
+/*
+* Allow request to be cross orgin
+*/
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 console.log("Retrieving CloudFlare cookie...");
 cloudscraper.get('http://kissanime.com', function(err, body, resp) {
 	var cookieString = resp.request.headers.cookie;
