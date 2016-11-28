@@ -26,7 +26,7 @@ app.use(function(req, res, next) {
 });
 
 console.log("Retrieving CloudFlare cookie...");
-cloudscraper.get('http://kissanime.com', function(err, body, resp) {
+cloudscraper.get('http://kissanime.com', function(err, resp, body) {
 	var cookieString = resp.request.headers.cookie;
 	AnimeUtils.setSessionCookie(cookieString);
 
